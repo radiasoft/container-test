@@ -1,4 +1,5 @@
 #!/bin/bash
+# REMOVE force build
 set -e -o pipefail
 trap 'echo FAILED' ERR EXIT
 img=radiasoft/test
