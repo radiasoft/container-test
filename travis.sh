@@ -1,10 +1,9 @@
 #!/bin/bash
-set -e
-set -o pipefail
+set -e -o pipefail
 trap 'echo FAILED' ERR EXIT
 img=radiasoft/test
 export radiasoft_secret_test=some-big-secret-xyzzy
-curl radia.run | build_batch_mode=1 build_passenv=radiasoft_secret_test bash -s container-build
+curl radia.run | build_passenv=radiasoft_secret_test bash -s container-build
 ver=$(
     docker images |
         perl -n -e 'm{^'"$img"'\s+(\d+\.\d+)} && print($1) && exit(0)'
