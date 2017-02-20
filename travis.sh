@@ -18,5 +18,5 @@ if [[ ! $out =~ $ver ]]; then
     echo "$ver: version didn't appear in out: $out" 1>&2
     exit 1
 fi
-trap '' EXIT
+trap - EXIT
 echo PASSED
