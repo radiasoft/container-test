@@ -2,5 +2,6 @@
 . ~/.bashrc
 set -e
 env
-python -c 'import json; assert float(json.load(open("/rsmanifest.json"))["version"]) > 20170101.'
+python=$(type -p python 2>/dev/null || type -p python3)
+"$python" -c 'import json; assert float(json.load(open("/rsmanifest.json"))["version"]) > 20170101.'
 cat /rsmanifest.json

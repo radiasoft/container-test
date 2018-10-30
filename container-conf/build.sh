@@ -6,7 +6,7 @@ build_is_public=1
 build_as_run_user() {
     cd "$build_guest_conf"
     if [[ $radiasoft_secret_test != some-big-secret-xyzzy ]]; then
-        echo 'radiasoft_secret_testwas not included' 1>&2
+        echo 'radiasoft_secret_test was not included' 1>&2
         exit 1
     fi
     local test=~/bin/radia-run-testimage
@@ -17,4 +17,5 @@ if [[ -e $build_guest_conf ]]; then
     exit 1
 fi
 EOF
+    build_run_user_home_chmod_public
 }
