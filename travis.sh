@@ -1,12 +1,12 @@
 #!/bin/bash
-set -e -o pipefail
-trap 'echo FAILED' ERR EXIT
+set -euo pipefail
+trap 'echo FAILED: err trap' ERR EXIT
 img=radiasoft/test
 export radiasoft_secret_test=some-big-secret-xyzzy
-curl radia.run | build_passenv=radiasoft_secret_test bash -s container-build
+curl https://depot.radiasoft.org/index.sh | build_passenv=radiasoft_secret_test bash -s container-build
 ver=$(
     docker images |
-        perl -n -e 'm{^'"$img"'\s+(\d+\.\d+)} && print($1) && exit(0)'
+        perl -n -e '!$x && m{^'"$img"'\s+(\d+\.\d+)} && print($x=$1)'
 )
 out=$(docker run --rm -u vagrant $img:$ver /home/vagrant/bin/radia-run-testimage 2>&1)
 if [[ $out =~ radiasoft_secret_test || $out =~ $radiasoft_secret_test ]]; then
