@@ -3,6 +3,10 @@ build_fedora_base_image
 build_travis_trigger_next=( travis-test-empty )
 build_is_public=1
 
+build_as_root() {
+    build_yum install screen
+}
+
 build_as_run_user() {
     cd "$build_guest_conf"
     if [[ $radiasoft_secret_test != some-big-secret-xyzzy ]]; then
