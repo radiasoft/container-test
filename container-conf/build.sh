@@ -21,5 +21,4 @@ if [[ -e $build_guest_conf ]]; then
     exit 1
 fi
 EOF
-    build_run_user_home_chmod_public
 }
