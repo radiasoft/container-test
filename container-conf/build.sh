@@ -1,16 +1,17 @@
 #!/bin/bash
 build_fedora_base_image
-build_travis_trigger_next=( travis-test-empty )
 build_is_public=1
 
 build_as_root() {
-    build_yum install screen
+    install_yum_install screen
 }
 
 build_as_run_user() {
     cd "$build_guest_conf"
-    if [[ $radiasoft_secret_test != some-big-secret-xyzzy ]]; then
-        echo 'radiasoft_secret_test was not included' 1>&2
+    # Must not match exactly so can check for it in test.sh and
+    # this file is included in the layer.
+    if [[ ! $GITHUB_TOKEN =~ some-big-secret ]]; then
+        echo 'GITHUB_TOKEN was not included' 1>&2
         exit 1
     fi
     local test=~/bin/radia-run-testimage
